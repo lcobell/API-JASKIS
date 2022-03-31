@@ -11,10 +11,7 @@ db.createCollection('bounties')
 // ADD THE ANIMAL BOUNTIES
 // 1. Insert the given "Thanoceros" bounty object
 
-db.bounties.insertOne({})
-{ acknowledged: true,
-  insertedId: ObjectId("624470985f87b68dc9c8d19a") }
-  // had to do it again because I forgot to shift + enter
+
 db.bounties.insertOne(
   {
   name: "Thanoceros",
@@ -94,7 +91,7 @@ db.bounties.insertMany([
 // 1. Query for all bounties in the Grasslands
 db.bounties.find({ location: "Grasslands" })
 // 2. Query for all bounties with a reward worth 10000 or more
-db.bounties.find({ reward: { $gt: 10000 }})
+db.bounties.find({ reward: { $gte: 10000 }})
 // 3. Query for all bounties, but exclude the client attribute from being shown
 db.bounties.find({}, {client: 0})
 // 4. Query for a Groundhog in the Woodlands
@@ -102,14 +99,12 @@ db.bounties.find({ species: 'Groundhog', location: 'Woodlands'})
 // Update and Delete
 // 1. Update the reward for Polarwind to 10000
 db.bounties.updateOne({
-    reward: 4000 },
-    { $set: { reward: 10000}})
+    name: "Polarwind"},
+    {$set:{ reward: 10000}
+  })
 // 2. Remove Lokinkajou
 db.bounties.deleteOne({ name: 'Lokinkajou'})
 // 3. Delete all bounties sent by Songbird
 db.bounties.deleteMany({ 'client': 'Songbird'})
 // 4. Update all captured statuses to true
-db.bounties.updateMany(
-    { captured: false},
-    { $set: {captured: true }
-  })
+db.bounties.updateMany( {}, {$set: {captured: true}})
